@@ -61,6 +61,19 @@ public:
     float LastTriggerTimestamp_SEC = -1.0f;
 
 // ============================================================
+//  DEBUG
+// ============================================================
+
+public:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TranquilMind|Debug")
+    bool bDebugHardwareMode = true;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TranquilMind|Debug",
+        meta = (ClampMin = "200.0", ClampMax = "8000.0", Units = "Milliseconds",
+                EditCondition = "bDebugHardwareMode"))
+    float DebugHardware_ISI_MS = 2000.0f;
+
+// ============================================================
 //  PUBLIC API
 // ============================================================
 
@@ -100,6 +113,8 @@ private:
     float LastSpawnTimestamp_SEC = -1.0f;
 
     FRandomStream StimulusRandomStream;
+
+    int32 DebugAlternateTypeCounter = 0;
 
 // ============================================================
 //  SESSION EVENT HANDLERS

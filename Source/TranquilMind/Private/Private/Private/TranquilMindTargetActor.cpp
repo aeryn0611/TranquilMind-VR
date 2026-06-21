@@ -50,6 +50,13 @@ ATranquilMindTargetActor::ATranquilMindTargetActor()
         MeshComponent->SetMaterial(0, GoMatFinder.Object);
     }
 
+    static ConstructorHelpers::FObjectFinder<UMaterial> BasicMatFinder(
+        TEXT("/Engine/BasicShapes/BasicShapeMaterial.BasicShapeMaterial"));
+    if (BasicMatFinder.Succeeded())
+    {
+        DebugBaseMaterial = BasicMatFinder.Object;
+    }
+
     StimulusType = ETMStimulusType::Go;
     SpawnTimestamp_SEC = 0.0f;
     bResolved = false;
@@ -156,11 +163,10 @@ void ATranquilMindTargetActor::InitializeTarget(
     SetActorTickEnabled(true);
     SetLifeSpan(0.0f);
 
-    // MI_Target_Go / M_TheVoid drives Emissive Color from a Material Parameter Collection;
-    // SetVectorParameterValue("EmissiveColor") has no effect on it.
-    // Use BasicShapeMaterial which has a direct "Color" VectorParameter → BaseColor.
-    UMaterial* BasicMat = LoadObject<UMaterial>(
-        nullptr, TEXT("/Engine/BasicShapes/BasicShapeMaterial"));
+    // Use DebugBaseMaterial (cached via ConstructorHelpers in constructor).
+    // Reliable in packaged builds; LoadObject at runtime does not guarantee asset is cooked.
+    // BasicShapeMaterial in UE5 is Unlit — "Color" drives Emissive output directly.
+    UMaterial* BasicMat = DebugBaseMaterial.Get();
     if (IsValid(BasicMat))
     {
         UMaterialInstanceDynamic* DynMat = UMaterialInstanceDynamic::Create(BasicMat, this);
@@ -168,11 +174,20 @@ void ATranquilMindTargetActor::InitializeTarget(
         {
             const FLinearColor TargetColor =
                 (StimulusType == ETMStimulusType::Go)
-                    ? FLinearColor(0.0f, 1.0f, 0.0f)   // GO: green
-                    : FLinearColor(1.0f, 0.0f, 0.0f);  // NOGO: red
+                    ? FLinearColor(0.0f, 5.0f, 0.0f, 1.0f)   // HDR bright green
+                    : FLinearColor(5.0f, 0.0f, 0.0f, 1.0f);  // HDR bright red
             DynMat->SetVectorParameterValue(TEXT("Color"), TargetColor);
             MeshComponent->SetMaterial(0, DynMat);
+
+            UE_LOG(LogTranquilMindTargetActor, Warning,
+                TEXT("[HardwareDebug] Debug material loaded | Type=%s"),
+                (StimulusType == ETMStimulusType::Go) ? TEXT("GO") : TEXT("NOGO"));
         }
+    }
+    else
+    {
+        UE_LOG(LogTranquilMindTargetActor, Warning,
+            TEXT("[HardwareDebug] Debug material load failed — using fallback material"));
     }
 
     UE_LOG(

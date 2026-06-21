@@ -81,6 +81,13 @@ void UTargetSpawnerComponent::BeginPlay()
                 TEXT("[TargetSpawner] No ATranquilMindSessionManager found in level. Spawning disabled."));
         }
     }
+
+    if (bDebugHardwareMode)
+    {
+        UE_LOG(LogTargetSpawnerComponent, Warning,
+            TEXT("[HardwareDebug] Enabled | ISI=%.0f ms | Alternating GO/NOGO | HardGate bypassed"),
+            DebugHardware_ISI_MS);
+    }
 }
 
 void UTargetSpawnerComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -150,7 +157,8 @@ void UTargetSpawnerComponent::TickComponent(
 
     const float ElapsedSinceLastSpawn_MS = (Now_SEC - LastSpawnTimestamp_SEC) * 1000.0f;
 
-    if (ElapsedSinceLastSpawn_MS >= CurrentISI_MS)
+    const float EffectiveISI_MS = bDebugHardwareMode ? DebugHardware_ISI_MS : CurrentISI_MS;
+    if (ElapsedSinceLastSpawn_MS >= EffectiveISI_MS)
     {
         SpawnNextTarget();
     }
@@ -504,6 +512,14 @@ void UTargetSpawnerComponent::SpawnNextTarget()
         SpawnLocation.X,
         SpawnLocation.Y,
         SpawnLocation.Z);
+
+    if (bDebugHardwareMode)
+    {
+        UE_LOG(LogTargetSpawnerComponent, Warning,
+            TEXT("[HardwareDebug] Spawned %s | Next in %.1f s"),
+            (NextStimulusType == ETMStimulusType::Go) ? TEXT("GO") : TEXT("NOGO"),
+            DebugHardware_ISI_MS / 1000.0f);
+    }
 }
 
 void UTargetSpawnerComponent::CleanupResolvedTargets()
@@ -576,8 +592,13 @@ bool UTargetSpawnerComponent::CanSpawnTargetsNow() const
 
     const ETMInterruptType ActiveInterrupt = SessionManager->GetActiveInterrupt();
 
-    if (ActiveInterrupt == ETMInterruptType::HardGate_GazeLost ||
-        ActiveInterrupt == ETMInterruptType::SysAbort)
+    if (ActiveInterrupt == ETMInterruptType::SysAbort)
+    {
+        return false;
+    }
+
+    if (!bDebugHardwareMode &&
+        ActiveInterrupt == ETMInterruptType::HardGate_GazeLost)
     {
         return false;
     }
@@ -590,6 +611,13 @@ ETMStimulusType UTargetSpawnerComponent::ChooseNextStimulusType()
     if (!IsValid(SessionManager.Get()))
     {
         return ETMStimulusType::Go;
+    }
+
+    if (bDebugHardwareMode)
+    {
+        return (DebugAlternateTypeCounter++ % 2 == 0)
+            ? ETMStimulusType::Go
+            : ETMStimulusType::NoGo;
     }
 
     const ETMSessionPhase CurrentPhase = SessionManager->GetCurrentPhase();
