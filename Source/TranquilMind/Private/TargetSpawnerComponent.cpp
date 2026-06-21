@@ -238,9 +238,14 @@ void UTargetSpawnerComponent::HandleTriggerPulled(FVector InSmoothedGazeDirectio
 
     const ETMInterruptType ActiveInterrupt = SessionManager->GetActiveInterrupt();
 
-    if (ActiveInterrupt == ETMInterruptType::HardGate_GazeLost ||
+    if ((!bDebugHardwareMode && ActiveInterrupt == ETMInterruptType::HardGate_GazeLost) ||
         ActiveInterrupt == ETMInterruptType::SysAbort)
     {
+        if (bDebugHardwareMode && ActiveInterrupt == ETMInterruptType::SysAbort)
+        {
+            UE_LOG(LogTargetSpawnerComponent, Warning,
+                TEXT("[HardwareDebug] Trigger ignored because SysAbort is active"));
+        }
         return;
     }
 
