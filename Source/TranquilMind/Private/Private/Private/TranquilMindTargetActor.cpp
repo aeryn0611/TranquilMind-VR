@@ -5,8 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
-#include "Materials/Material.h"
-#include "Materials/MaterialInstanceDynamic.h"
+#include "Materials/MaterialInterface.h"
 #include "Math/UnrealMathUtility.h"
 #include "../../../TranquilMindSessionManager.h"
 #include "UObject/ConstructorHelpers.h"
@@ -15,7 +14,7 @@ DEFINE_LOG_CATEGORY_STATIC(LogTranquilMindTargetActor, Log, All);
 
 namespace TranquilMindTarget
 {
-    constexpr float DebugResponseWindow_MS = 10000.0f;
+    constexpr float DebugResponseWindow_MS = 1500.0f;
     constexpr float DebugMovementSpeed_CMPerSec = 50.0f;
     constexpr float DebugDestroyDepth_CM = -10000.0f;
     constexpr float DebugTargetScale = 0.25f;
@@ -48,13 +47,14 @@ ATranquilMindTargetActor::ATranquilMindTargetActor()
     if (GoMatFinder.Succeeded())
     {
         MeshComponent->SetMaterial(0, GoMatFinder.Object);
+        DebugGoMaterial = GoMatFinder.Object;
     }
 
-    static ConstructorHelpers::FObjectFinder<UMaterial> BasicMatFinder(
-        TEXT("/Engine/BasicShapes/BasicShapeMaterial.BasicShapeMaterial"));
-    if (BasicMatFinder.Succeeded())
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> NoGoMatFinder(
+        TEXT("/Game/MI_Target_NoGo.MI_Target_NoGo"));
+    if (NoGoMatFinder.Succeeded())
     {
-        DebugBaseMaterial = BasicMatFinder.Object;
+        DebugNoGoMaterial = NoGoMatFinder.Object;
     }
 
     StimulusType = ETMStimulusType::Go;
@@ -106,18 +106,17 @@ void ATranquilMindTargetActor::Tick(float DeltaTime)
         return;
     }
 
-    // TEMP DEBUG MODE:
-    // 暂时关闭自动 ResponseWindow 到期判定。
-    // 现在目标不会因为时间窗过期自动消失，只会被 Space / Trigger 命中后销毁。
-    //
-    // 正式版恢复：
-    // const float Now_SEC = World->GetTimeSeconds();
-    // const float Elapsed_MS = (Now_SEC - SpawnTimestamp_SEC) * 1000.0f;
-    // if (Elapsed_MS >= ResponseWindow_MS)
-    // {
-    //     ResolveExpiredResponseWindow();
-    //     return;
-    // }
+    const float Now_SEC = World->GetTimeSeconds();
+    const float Elapsed_MS = (Now_SEC - SpawnTimestamp_SEC) * 1000.0f;
+    if (Elapsed_MS >= ResponseWindow_MS)
+    {
+        UE_LOG(LogTranquilMindTargetActor, Warning,
+            TEXT("[HardwareDebug] Response window expired | Type=%s -> %s"),
+            (StimulusType == ETMStimulusType::Go) ? TEXT("GO") : TEXT("NOGO"),
+            (StimulusType == ETMStimulusType::Go) ? TEXT("Omission") : TEXT("CorrectRejection"));
+        ResolveExpiredResponseWindow();
+        return;
+    }
 
     const FVector CurrentLocation = GetActorLocation();
 
@@ -163,31 +162,24 @@ void ATranquilMindTargetActor::InitializeTarget(
     SetActorTickEnabled(true);
     SetLifeSpan(0.0f);
 
-    // Use DebugBaseMaterial (cached via ConstructorHelpers in constructor).
-    // Reliable in packaged builds; LoadObject at runtime does not guarantee asset is cooked.
-    // BasicShapeMaterial in UE5 is Unlit — "Color" drives Emissive output directly.
-    UMaterial* BasicMat = DebugBaseMaterial.Get();
-    if (IsValid(BasicMat))
-    {
-        UMaterialInstanceDynamic* DynMat = UMaterialInstanceDynamic::Create(BasicMat, this);
-        if (IsValid(DynMat))
-        {
-            const FLinearColor TargetColor =
-                (StimulusType == ETMStimulusType::Go)
-                    ? FLinearColor(0.0f, 5.0f, 0.0f, 1.0f)   // HDR bright green
-                    : FLinearColor(5.0f, 0.0f, 0.0f, 1.0f);  // HDR bright red
-            DynMat->SetVectorParameterValue(TEXT("Color"), TargetColor);
-            MeshComponent->SetMaterial(0, DynMat);
+    // MI_Target_Go and MI_Target_NoGo are Unlit (Substrate MSM_Unlit, color → Emissive).
+    // Cached via ConstructorHelpers in constructor — guaranteed cooked in packaged builds.
+    UMaterialInterface* DebugMat = (StimulusType == ETMStimulusType::Go)
+        ? DebugGoMaterial.Get()
+        : DebugNoGoMaterial.Get();
 
-            UE_LOG(LogTranquilMindTargetActor, Warning,
-                TEXT("[HardwareDebug] Debug material loaded | Type=%s"),
-                (StimulusType == ETMStimulusType::Go) ? TEXT("GO") : TEXT("NOGO"));
-        }
+    if (IsValid(DebugMat))
+    {
+        MeshComponent->SetMaterial(0, DebugMat);
+        UE_LOG(LogTranquilMindTargetActor, Warning,
+            TEXT("[HardwareDebug] Debug material set | Type=%s"),
+            (StimulusType == ETMStimulusType::Go) ? TEXT("GO") : TEXT("NOGO"));
     }
     else
     {
         UE_LOG(LogTranquilMindTargetActor, Warning,
-            TEXT("[HardwareDebug] Debug material load failed — using fallback material"));
+            TEXT("[HardwareDebug] Debug material missing | Type=%s"),
+            (StimulusType == ETMStimulusType::Go) ? TEXT("GO") : TEXT("NOGO"));
     }
 
     UE_LOG(

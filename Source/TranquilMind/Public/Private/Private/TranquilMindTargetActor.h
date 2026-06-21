@@ -9,7 +9,7 @@
 
 class UStaticMeshComponent;
 class ATranquilMindSessionManager;
-class UMaterial;
+class UMaterialInterface;
 
 UCLASS(BlueprintType, Blueprintable)
 class TRANQUILMIND_API ATranquilMindTargetActor : public AActor
@@ -106,7 +106,10 @@ private:
     TObjectPtr<ATranquilMindSessionManager> SessionManager = nullptr;
 
     UPROPERTY()
-    TObjectPtr<UMaterial> DebugBaseMaterial = nullptr;
+    TObjectPtr<UMaterialInterface> DebugGoMaterial = nullptr;
+
+    UPROPERTY()
+    TObjectPtr<UMaterialInterface> DebugNoGoMaterial = nullptr;
 
     float LockedY_CM = 0.0f;
 
