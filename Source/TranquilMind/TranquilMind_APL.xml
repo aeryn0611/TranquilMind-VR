@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidManifestUpdates>
+        <setElement result="supportedDevices" value="meta-data"/>
+        <addAttribute tag="$supportedDevices" name="android:name" value="com.oculus.supportedDevices"/>
+        <addAttribute tag="$supportedDevices" name="android:value" value="quest|quest2|questpro|quest3"/>
+        <addElement tag="application" name="supportedDevices"/>
+
+        <setElement result="metaAppId" value="meta-data"/>
+        <addAttribute tag="$metaAppId" name="android:name" value="com.oculus.application_id"/>
+        <addAttribute tag="$metaAppId" name="android:value" value="0"/>
+        <addElement tag="application" name="metaAppId"/>
+    </androidManifestUpdates>
+</root>

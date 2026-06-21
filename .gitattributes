@@ -1,0 +1,71 @@
+# =============================================================
+# TranquilMind — Git LFS configuration
+# .gitattributes
+# Requires: git lfs install (run once per machine)
+# LFS patterns are registered here; no need to run git lfs track manually.
+# =============================================================
+
+# -------------------------------------------------------------
+# UE5 native binary assets -> stored in Git LFS
+# -------------------------------------------------------------
+*.uasset filter=lfs diff=lfs merge=lfs -text
+*.umap   filter=lfs diff=lfs merge=lfs -text
+
+# -------------------------------------------------------------
+# Audio (not present yet, reserved for future use)
+# -------------------------------------------------------------
+*.wav  filter=lfs diff=lfs merge=lfs -text
+*.ogg  filter=lfs diff=lfs merge=lfs -text
+*.mp3  filter=lfs diff=lfs merge=lfs -text
+*.flac filter=lfs diff=lfs merge=lfs -text
+
+# -------------------------------------------------------------
+# Textures / images (not present yet, reserved for future use)
+# -------------------------------------------------------------
+*.png  filter=lfs diff=lfs merge=lfs -text
+*.jpg  filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.tga  filter=lfs diff=lfs merge=lfs -text
+*.bmp  filter=lfs diff=lfs merge=lfs -text
+*.hdr  filter=lfs diff=lfs merge=lfs -text
+*.exr  filter=lfs diff=lfs merge=lfs -text
+*.dds  filter=lfs diff=lfs merge=lfs -text
+
+# -------------------------------------------------------------
+# 3D meshes (not present yet, reserved for future use)
+# -------------------------------------------------------------
+*.fbx  filter=lfs diff=lfs merge=lfs -text
+*.obj  filter=lfs diff=lfs merge=lfs -text
+*.dae  filter=lfs diff=lfs merge=lfs -text
+*.3ds  filter=lfs diff=lfs merge=lfs -text
+
+# -------------------------------------------------------------
+# Video (not present yet, reserved for future use)
+# -------------------------------------------------------------
+*.mp4  filter=lfs diff=lfs merge=lfs -text
+*.mov  filter=lfs diff=lfs merge=lfs -text
+*.avi  filter=lfs diff=lfs merge=lfs -text
+
+# -------------------------------------------------------------
+# Native platform binaries (e.g. precompiled plugin libraries)
+# -------------------------------------------------------------
+*.so     filter=lfs diff=lfs merge=lfs -text
+*.dll    filter=lfs diff=lfs merge=lfs -text
+*.dylib  filter=lfs diff=lfs merge=lfs -text
+*.a      filter=lfs diff=lfs merge=lfs -text
+*.lib    filter=lfs diff=lfs merge=lfs -text
+*.pdb    filter=lfs diff=lfs merge=lfs -text
+
+# -------------------------------------------------------------
+# Text files — enforce LF line endings
+# -------------------------------------------------------------
+*.cpp  text eol=lf
+*.h    text eol=lf
+*.cs   text eol=lf
+*.ini  text eol=lf
+*.xml  text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+*.txt  text eol=lf
+*.py   text eol=lf
+*.sh   text eol=lf
