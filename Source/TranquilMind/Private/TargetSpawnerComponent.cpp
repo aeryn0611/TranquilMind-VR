@@ -88,6 +88,13 @@ void UTargetSpawnerComponent::BeginPlay()
             TEXT("[HardwareDebug] Enabled | ISI=%.0f ms | Alternating GO/NOGO | HardGate bypassed"),
             DebugHardware_ISI_MS);
     }
+
+    if (bDemoMode)
+    {
+        UE_LOG(LogTargetSpawnerComponent, Warning,
+            TEXT("[DemoMode] Enabled | ISI=%.0f ms | ResponseWindow=%.0f ms | Duration=%.0f s"),
+            DemoMode_ISI_MS, DemoMode_ResponseWindow_MS, DemoMode_Duration_SEC);
+    }
 }
 
 void UTargetSpawnerComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -125,6 +132,24 @@ void UTargetSpawnerComponent::TickComponent(
 
     CleanupResolvedTargets();
 
+    if (bDemoMode)
+    {
+        if (bDemoEnded)
+        {
+            return;
+        }
+        DemoElapsed_SEC += DeltaTime;
+        if (DemoElapsed_SEC >= DemoMode_Duration_SEC)
+        {
+            bDemoEnded = true;
+            DestroyAllActiveTargetsAsVoid();
+            UE_LOG(LogTargetSpawnerComponent, Warning,
+                TEXT("[DemoMode] Session ended | Elapsed=%.1f s"),
+                DemoElapsed_SEC);
+            return;
+        }
+    }
+
     if (!CanSpawnTargetsNow())
     {
         if (IsValid(SessionManager.Get()))
@@ -157,7 +182,9 @@ void UTargetSpawnerComponent::TickComponent(
 
     const float ElapsedSinceLastSpawn_MS = (Now_SEC - LastSpawnTimestamp_SEC) * 1000.0f;
 
-    const float EffectiveISI_MS = bDebugHardwareMode ? DebugHardware_ISI_MS : CurrentISI_MS;
+    const float EffectiveISI_MS = bDemoMode
+        ? DemoMode_ISI_MS
+        : (bDebugHardwareMode ? DebugHardware_ISI_MS : CurrentISI_MS);
     if (ElapsedSinceLastSpawn_MS >= EffectiveISI_MS)
     {
         SpawnNextTarget();
@@ -378,6 +405,13 @@ void UTargetSpawnerComponent::RegisterSessionManager(ATranquilMindSessionManager
         this,
         &UTargetSpawnerComponent::HandlePhaseChanged);
 
+    if (bDemoMode)
+    {
+        SessionManager->bBypassHardGateSuspend = true;
+        UE_LOG(LogTargetSpawnerComponent, Warning,
+            TEXT("[DemoMode] HardGate suspend watchdog bypassed"));
+    }
+
     const FSessionStats SessionStats = SessionManager->GetSessionStats();
     ApplyStaircaseParams(SessionStats.Current_ISI_MS, SessionStats.Current_NoiseAlpha);
 
@@ -506,6 +540,11 @@ void UTargetSpawnerComponent::SpawnNextTarget()
         SpawnTimestamp_SEC,
         SessionManager.Get());
 
+    if (bDemoMode)
+    {
+        SpawnedTarget->ResponseWindow_MS = DemoMode_ResponseWindow_MS;
+    }
+
     ActiveTargets.Add(SpawnedTarget);
 
     UE_LOG(
@@ -520,10 +559,11 @@ void UTargetSpawnerComponent::SpawnNextTarget()
 
     if (bDebugHardwareMode)
     {
+        const float DisplayISI_MS = bDemoMode ? DemoMode_ISI_MS : DebugHardware_ISI_MS;
         UE_LOG(LogTargetSpawnerComponent, Warning,
             TEXT("[HardwareDebug] Spawned %s | Next in %.1f s"),
             (NextStimulusType == ETMStimulusType::Go) ? TEXT("GO") : TEXT("NOGO"),
-            DebugHardware_ISI_MS / 1000.0f);
+            DisplayISI_MS / 1000.0f);
     }
 }
 

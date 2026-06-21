@@ -73,6 +73,24 @@ public:
                 EditCondition = "bDebugHardwareMode"))
     float DebugHardware_ISI_MS = 2000.0f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TranquilMind|Debug")
+    bool bDemoMode = true;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TranquilMind|Debug",
+        meta = (ClampMin = "1000.0", ClampMax = "10000.0", Units = "Milliseconds",
+                EditCondition = "bDemoMode"))
+    float DemoMode_ISI_MS = 3000.0f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TranquilMind|Debug",
+        meta = (ClampMin = "500.0", ClampMax = "8000.0", Units = "Milliseconds",
+                EditCondition = "bDemoMode"))
+    float DemoMode_ResponseWindow_MS = 2500.0f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TranquilMind|Debug",
+        meta = (ClampMin = "30.0", ClampMax = "600.0", Units = "Seconds",
+                EditCondition = "bDemoMode"))
+    float DemoMode_Duration_SEC = 120.0f;
+
 // ============================================================
 //  PUBLIC API
 // ============================================================
@@ -115,6 +133,9 @@ private:
     FRandomStream StimulusRandomStream;
 
     int32 DebugAlternateTypeCounter = 0;
+
+    float DemoElapsed_SEC = 0.0f;
+    bool  bDemoEnded = false;
 
 // ============================================================
 //  SESSION EVENT HANDLERS

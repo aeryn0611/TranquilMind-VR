@@ -91,6 +91,9 @@ public:
         meta = (ClampMin = "1.0", ClampMax = "30.0", Units = "Degrees"))
     float HardGate_CPTZoneHalfAngle_DEG = 10.0f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TranquilMind|Config|HardGate")
+    bool bBypassHardGateSuspend = false;
+
 // ============================================================
 //  SECTION E — PUBLIC API: INTERRUPT TRIGGERS
 // ============================================================

@@ -900,6 +900,11 @@ void ATranquilMindSessionManager::TickHardGateSuspendWatchdog(float DeltaTime)
 
     HardGate_SuspendTimer_SEC += DeltaTime;
 
+    if (bBypassHardGateSuspend)
+    {
+        return;
+    }
+
     if (HardGate_SuspendTimer_SEC >= TranquilMind::HARDGATE_SUSPEND_ABORT_SEC)
     {
         TriggerSysAbort(ETMAbortReason::HardGateSuspendTimeout);
