@@ -21,6 +21,9 @@ public class TranquilMind : ModuleRules
 
         PrivateDependencyModuleNames.AddRange(new string[]
         {
+            "Sockets",
+            "Networking",
+            "Json"
         });
 
         if (Target.Platform == UnrealTargetPlatform.Android)
