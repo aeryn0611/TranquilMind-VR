@@ -39,21 +39,21 @@ ATranquilMindHintPanel::ATranquilMindHintPanel()
         TEXT("Text_Line1"),
         TEXT("GREEN = Press Trigger"),
         7.0f,
-        FColor(80, 220, 80),
+        FColor(20, 125, 50),
         12.0f);
 
     Text_Line2 = MakeLine(
         TEXT("Text_Line2"),
         TEXT("RED = Do Not Press"),
         7.0f,
-        FColor(255, 80, 80),
+        FColor(185, 40, 45),
         0.0f);
 
     Text_Line3 = MakeLine(
         TEXT("Text_Line3"),
         TEXT("Session ends after 120s"),
         5.0f,
-        FColor(170, 175, 205),
+        FColor(90, 85, 140),
         -10.0f);
 }
 

@@ -11,11 +11,12 @@ DEFINE_LOG_CATEGORY_STATIC(LogTranquilMindGSRStatusPanel, Log, All);
 
 namespace TranquilMindGSRPanelStyle
 {
-    const FColor HeaderColor  (140, 135, 200);   // muted violet
-    const FColor LiveColor    ( 90, 220, 255);   // calm cyan
-    const FColor StaleColor   (255, 185,  90);   // soft amber
-    const FColor WaitingColor (150, 150, 165);   // neutral gray
-    const FColor DetailColor  (200, 205, 215);   // light gray
+    // Dark-on-pastel palette: panels float against the lavender sky.
+    const FColor HeaderColor  ( 70,  60, 125);   // deep violet
+    const FColor LiveColor    (  0, 105, 150);   // deep calm teal
+    const FColor StaleColor   (175,  95,  25);   // muted amber
+    const FColor WaitingColor ( 95,  95, 115);   // slate gray
+    const FColor DetailColor  ( 75,  78, 105);   // dark slate
 }
 
 ATranquilMindGSRStatusPanel::ATranquilMindGSRStatusPanel()

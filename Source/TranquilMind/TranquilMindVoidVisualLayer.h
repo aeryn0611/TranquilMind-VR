@@ -11,11 +11,13 @@ class UStaticMeshComponent;
 class UMaterialInterface;
 class UMaterialInstanceDynamic;
 
-// Lightweight ambient environment for the void level: a dim floor grid and a
-// distant ring of accent markers. Pure visual layer — unlit materials, plain
-// static mesh components (the same M_TheVoid rendering path the target actor
-// already uses on Quest), no tick, no gameplay coupling. Keeps the central
-// target corridor clear.
+// Calm therapeutic scene layer: pastel lavender sky dome, soft water-plane
+// horizon, a symbolic tree silhouette, and floating orb accents. Pure visual
+// layer — unlit M_TheVoid-family materials on plain static mesh components
+// (the same rendering path the target actor already uses on Quest), no
+// shadows, no collision, no gameplay coupling. One-shot tick aligns the scene
+// to the user's eye height at startup, then ticking is disabled. Keeps the
+// central target corridor clear.
 UCLASS()
 class TRANQUILMIND_API ATranquilMindVoidVisualLayer : public AActor
 {
@@ -25,23 +27,39 @@ public:
     ATranquilMindVoidVisualLayer();
 
     virtual void BeginPlay() override;
+    virtual void Tick(float DeltaTime) override;
 
 private:
-    UStaticMeshComponent* AddCube(
+    UStaticMeshComponent* AddMeshComp(
+        UStaticMesh* Mesh,
         const FVector& Location,
         const FRotator& Rotation,
         const FVector& Scale,
         UMaterialInstanceDynamic* Material);
 
-    void BuildFloorGrid(UMaterialInstanceDynamic* Material);
-    void BuildAccentRing(UMaterialInstanceDynamic* Material);
+    UMaterialInstanceDynamic* MakeColorMID(const FLinearColor& Color);
+
+    void BuildSkyAndWater();
+    void BuildTree();
+    void BuildOrbs();
+
+    UPROPERTY()
+    TObjectPtr<UStaticMesh> SphereMesh;
 
     UPROPERTY()
     TObjectPtr<UStaticMesh> CubeMesh;
 
     UPROPERTY()
+    TObjectPtr<UStaticMesh> CylinderMesh;
+
+    UPROPERTY()
+    TObjectPtr<UStaticMesh> PlaneMesh;
+
+    UPROPERTY()
     TObjectPtr<UMaterialInterface> VoidBaseMaterial;
 
     UPROPERTY()
-    TArray<TObjectPtr<UStaticMeshComponent>> VisualCubes;
+    TArray<TObjectPtr<UStaticMeshComponent>> SceneComps;
+
+    bool bSceneBuilt = false;
 };
