@@ -117,6 +117,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "TranquilMind|Target")
     void CleanupResolvedTargets();
 
+    UFUNCTION(BlueprintPure, Category = "TranquilMind|Debug")
+    bool IsDemoEnded() const { return bDemoEnded; }
+
 // ============================================================
 //  INTERNAL STATE
 // ============================================================
