@@ -8,9 +8,8 @@
 
 class UTextRenderComponent;
 
-// Minimal, always-visible VR text readout of the latest GSR sample.
-// Read-only consumer of UTranquilMindPhysiologyReceiver — never affects
-// gameplay, target spawning, ISI, scoring, HardGate, or session logic.
+// Listens for GSR UDP packets from the ESP32 (port 4210) and caches the latest sample.
+// Disable at runtime via console variable: tranquilmind.physiology.enabled 0
 UCLASS()
 class TRANQUILMIND_API ATranquilMindGSRStatusPanel : public AActor
 {
@@ -24,7 +23,13 @@ public:
 
 private:
     UPROPERTY()
-    TObjectPtr<UTextRenderComponent> StatusText;
+    TObjectPtr<UTextRenderComponent> HeaderText;
+
+    UPROPERTY()
+    TObjectPtr<UTextRenderComponent> StateText;
+
+    UPROPERTY()
+    TObjectPtr<UTextRenderComponent> DetailText;
 
     // ESP32 ts (millis() since ESP32 boot) can't be compared to Unreal's world
     // clock directly, so "Age" is measured from when THIS actor last noticed

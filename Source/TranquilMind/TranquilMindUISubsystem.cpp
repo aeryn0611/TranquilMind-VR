@@ -5,6 +5,7 @@
 #include "TranquilMindHintPanel.h"
 #include "TranquilMindGSRStatusPanel.h"
 #include "TranquilMindDemoSummaryPanel.h"
+#include "TranquilMindVoidVisualLayer.h"
 #include "Engine/World.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogTranquilMindUISubsystem, Log, All);
@@ -54,4 +55,13 @@ void UTranquilMindUISubsystem::OnWorldBeginPlay(UWorld& InWorld)
     UE_LOG(LogTranquilMindUISubsystem, Warning,
         TEXT("[UISubsystem] ATranquilMindDemoSummaryPanel spawn result: %s"),
         SpawnedSummary ? TEXT("OK") : TEXT("FAILED - nullptr returned"));
+
+    // World-anchored ambient environment (identity transform, not camera-relative).
+    AActor* SpawnedVisual = InWorld.SpawnActor<ATranquilMindVoidVisualLayer>(
+        ATranquilMindVoidVisualLayer::StaticClass(),
+        FTransform::Identity);
+
+    UE_LOG(LogTranquilMindUISubsystem, Warning,
+        TEXT("[UISubsystem] ATranquilMindVoidVisualLayer spawn result: %s"),
+        SpawnedVisual ? TEXT("OK") : TEXT("FAILED - nullptr returned"));
 }

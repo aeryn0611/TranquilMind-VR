@@ -53,7 +53,7 @@ ATranquilMindHintPanel::ATranquilMindHintPanel()
         TEXT("Text_Line3"),
         TEXT("Session ends after 120s"),
         5.0f,
-        FColor(200, 200, 200),
+        FColor(170, 175, 205),
         -10.0f);
 }
 

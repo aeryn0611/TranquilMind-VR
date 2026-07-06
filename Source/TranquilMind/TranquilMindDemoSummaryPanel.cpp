@@ -36,9 +36,9 @@ ATranquilMindDemoSummaryPanel::ATranquilMindDemoSummaryPanel()
         return Comp;
     };
 
-    TitleText  = MakeLine(TEXT("TitleText"),  7.0f, FColor(120, 220, 160),  22.0f);
-    BodyText   = MakeLine(TEXT("BodyText"),   4.0f, FColor(225, 225, 225),  -4.0f);
-    FooterText = MakeLine(TEXT("FooterText"), 3.0f, FColor(150, 170, 190), -28.0f);
+    TitleText  = MakeLine(TEXT("TitleText"),  7.5f, FColor(120, 210, 255),  24.0f);
+    BodyText   = MakeLine(TEXT("BodyText"),   4.0f, FColor(210, 215, 225),  -4.0f);
+    FooterText = MakeLine(TEXT("FooterText"), 2.8f, FColor(150, 150, 200), -30.0f);
 
     TitleText->SetText(FText::FromString(TEXT("TranquilMind Demo Complete")));
     FooterText->SetText(FText::FromString(TEXT("Real-time physiological sensing verified on Quest.")));
