@@ -3,6 +3,7 @@
 #include "TranquilMindUISubsystem.h"
 
 #include "TranquilMindHintPanel.h"
+#include "TranquilMindGSRStatusPanel.h"
 #include "Engine/World.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogTranquilMindUISubsystem, Log, All);
@@ -36,4 +37,12 @@ void UTranquilMindUISubsystem::OnWorldBeginPlay(UWorld& InWorld)
     UE_LOG(LogTranquilMindUISubsystem, Warning,
         TEXT("[UISubsystem] ATranquilMindHintPanel spawn result: %s"),
         Spawned ? TEXT("OK") : TEXT("FAILED - nullptr returned"));
+
+    AActor* SpawnedGSR = InWorld.SpawnActor<ATranquilMindGSRStatusPanel>(
+        ATranquilMindGSRStatusPanel::StaticClass(),
+        SpawnTransform);
+
+    UE_LOG(LogTranquilMindUISubsystem, Warning,
+        TEXT("[UISubsystem] ATranquilMindGSRStatusPanel spawn result: %s"),
+        SpawnedGSR ? TEXT("OK") : TEXT("FAILED - nullptr returned"));
 }
