@@ -1,0 +1,18 @@
+### JSONL inspection — `duplicate_trial.jsonl`
+
+- Structural result: **FAIL**
+- Total records: 6
+- Record types: `{'session_header': 1, 'trial': 3, 'block_summary': 1, 'session_footer': 1}`
+- Trials: 3  |  unique: 2  |  duplicates: [1]  |  missing: []
+- Stimulus counts: `{'GO': 3, 'NOGO': 0}`
+- Outcome counts: `{'Hit': 2, 'Omission': 1, 'CorrectRejection': 0, 'Commission': 0, 'Void': 0}` (sum 3)
+- Seeds: `[20260708]`  |  hashes: `['4922870221080512783']`
+- Visual dur (min/max/mean s): `[0.401, 0.401, 0.401]`
+- ITI (min/max/mean s): `[1.0, 1.2, 1.1]`
+- responseAcceptedAfterVisualOffset=true: 0
+- visualTerminatedByResponse=true: 0 (must be 0)
+- Footer present: True  |  logger healthy: True  |  write failures: 0
+- PII suspect hits: []
+
+**Failures (structural):**
+- Duplicate trial indices (each trial must have exactly one record): [1]

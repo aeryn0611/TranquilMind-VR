@@ -1,0 +1,5 @@
+[log]TMS1|schema=2|f=100|rt=0.0|wt=0.0|ev=SESSION_BEGIN|sid=1|spawnseq=-1|aname=session|auid=0|cyc=0|map=L_Env|worldtype=3|pie=1|mode=Demo|netmode=0
+[log]TMS1|schema=2|f=101|rt=1.402778|wt=1.402778|ev=SPAWN|sid=1|spawnseq=0|aname=A_500|auid=500|cyc=1
+[log]TMS1|schema=2|f=130|rt=1.805556|wt=1.805556|ev=ENDPLAY|sid=1|spawnseq=0|aname=A_500|auid=500|cyc=1|reason=0
+[log]TMS1|schema=2|f=200|rt=2.777778|wt=2.777778|ev=SPAWN|sid=1|spawnseq=1|aname=A_500|auid=500|cyc=1
+[log]TMS1|schema=2|f=230|rt=3.194444|wt=3.194444|ev=ENDPLAY|sid=1|spawnseq=1|aname=A_500|auid=500|cyc=1|reason=0

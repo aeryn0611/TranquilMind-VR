@@ -1,0 +1,31 @@
+================================================================
+TranquilMind Research JSONL inspection
+================================================================
+file            : tests/fixtures/unhealthy_logger.jsonl
+total records   : 6
+record types    : {'session_header': 1, 'trial': 3, 'block_summary': 1, 'session_footer': 1}
+trial count     : 3
+unique trials   : 3
+duplicate trials: []
+missing trials  : []
+stimulus counts : {'GO': 2, 'NOGO': 1}
+outcome counts  : {'Hit': 1, 'Omission': 1, 'CorrectRejection': 1, 'Commission': 0, 'Void': 0}
+outcome sum     : 3
+seeds           : [20260708]
+sequence hashes : ['4922870221080512783']
+visual dur (min/max/mean s): [0.401, 0.401, 0.401]
+ITI (min/max/mean s)       : [1.0, 1.2, 1.1]
+responseAcceptedAfterVisualOffset=true: 0
+visualTerminatedByResponse=true       : 0
+footer present  : True
+logger healthy  : False
+write failures  : 2
+----------------------------------------------------------------
+FAIL (structural):
+  - Logger footer healthy != true (healthy=False).
+  - Logger reported writeFailures=2 (expected 0).
+----------------------------------------------------------------
+RESULT: FAIL (structural)
+================================================================
+Wrote: tests/fixtures/unhealthy_logger.jsonl.summary.json
+Wrote: tests/fixtures/unhealthy_logger.jsonl.summary.md

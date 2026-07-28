@@ -1,0 +1,9 @@
+[log]TMS1|schema=2|f=100|rt=0.0|wt=0.0|ev=SESSION_BEGIN|sid=1|spawnseq=-1|aname=session|auid=0|cyc=0|map=L_Env|worldtype=3|pie=1|mode=Demo|netmode=0
+[log]TMS1|schema=2|f=101|rt=1.402778|wt=1.402778|ev=SPAWN|sid=1|spawnseq=0|aname=A_500|auid=500|cyc=1
+[log]TMS1|schema=2|f=102|rt=1.416667|wt=1.416667|ev=MID_CREATE|sid=1|spawnseq=0|aname=A_500|auid=500|cyc=1|miduid=900|caller=test
+[log]TMS1|schema=2|f=103|rt=1.430556|wt=1.430556|ev=SNAP|sid=1|spawnseq=0|aname=A_500|auid=500|cyc=1|miduid=900|midvalid=1|activetargets=1|visiblepresentations=1
+[log]TMS1|schema=2|f=130|rt=1.805556|wt=1.805556|ev=ENDPLAY|sid=1|spawnseq=0|aname=A_500|auid=500|cyc=1|reason=0
+[log]TMS1|schema=2|f=131|rt=1.819444|wt=1.819444|ev=SPAWN|sid=1|spawnseq=1|aname=A_501|auid=501|cyc=1
+[log]TMS1|schema=2|f=132|rt=1.833333|wt=1.833333|ev=MID_CREATE|sid=1|spawnseq=1|aname=A_501|auid=501|cyc=1|miduid=901|caller=test
+[log]TMS1|schema=2|f=133|rt=1.847222|wt=1.847222|ev=SNAP|sid=1|spawnseq=1|aname=A_501|auid=501|cyc=1|miduid=901|midvalid=1|activetargets=1|visiblepresentations=1
+[log]TMS1|schema=2|f=160|rt=2.222222|wt=2.222222|ev=ENDPLAY|sid=1|spawnseq=1|aname=A_501|auid=501|cyc=1|reason=0

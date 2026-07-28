@@ -1,0 +1,77 @@
+{
+  "info": {
+    "file": "tests/fixtures/malformed.jsonl",
+    "total_records": 5,
+    "record_types": {
+      "session_header": 1,
+      "trial": 2,
+      "block_summary": 1,
+      "session_footer": 1
+    },
+    "trial_count": 2,
+    "pii_suspect_hits": [],
+    "unique_trial_indices": [
+      0,
+      2
+    ],
+    "duplicate_trial_indices": [],
+    "missing_trial_indices": [
+      1
+    ],
+    "outcome_counts": {
+      "Hit": 1,
+      "Omission": 0,
+      "CorrectRejection": 1,
+      "Commission": 0,
+      "Void": 0
+    },
+    "stimulus_counts": {
+      "GO": 1,
+      "NOGO": 1
+    },
+    "outcome_sum": 2,
+    "seeds": [
+      20260708
+    ],
+    "sequence_hashes": [
+      "4922870221080512783"
+    ],
+    "timing_field_presence": {
+      "scheduledStimulusOnsetSec": 2,
+      "realizedStimulusOnsetSec": 2,
+      "scheduledStimulusOffsetSec": 2,
+      "realizedStimulusOffsetSec": 2,
+      "responseWindowDeadlineSec": 2,
+      "responseTimestampSec": 2,
+      "behavioralResolutionTimestampSec": 2,
+      "trialCompleteTimestampSec": 2
+    },
+    "visual_duration_count": 2,
+    "deadline_duration_count": 2,
+    "iti_sample_count": 1,
+    "responseAcceptedAfterVisualOffset_true": 0,
+    "visualTerminatedByResponse_true": 0,
+    "visual_duration_min_max_mean": [
+      0.401,
+      0.401,
+      0.401
+    ],
+    "iti_min_max_mean_s": [
+      1.2,
+      1.2,
+      1.2
+    ],
+    "header_present": true,
+    "footer_present": true,
+    "block_summary_count": 1,
+    "logger_healthy": true,
+    "logger_write_failures": 0,
+    "logger_records_written": 4
+  },
+  "warnings": [],
+  "failures": [
+    "Line 3: invalid JSON (Expecting property name enclosed in double quotes: line 1 column 3 (char 2))",
+    "Missing trial indices in range: [1]"
+  ],
+  "structural_pass": false
+}

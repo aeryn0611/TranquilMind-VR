@@ -1,0 +1,30 @@
+================================================================
+TranquilMind Research JSONL inspection
+================================================================
+file            : tests/fixtures/duplicate_trial.jsonl
+total records   : 6
+record types    : {'session_header': 1, 'trial': 3, 'block_summary': 1, 'session_footer': 1}
+trial count     : 3
+unique trials   : 2
+duplicate trials: [1]
+missing trials  : []
+stimulus counts : {'GO': 3, 'NOGO': 0}
+outcome counts  : {'Hit': 2, 'Omission': 1, 'CorrectRejection': 0, 'Commission': 0, 'Void': 0}
+outcome sum     : 3
+seeds           : [20260708]
+sequence hashes : ['4922870221080512783']
+visual dur (min/max/mean s): [0.401, 0.401, 0.401]
+ITI (min/max/mean s)       : [1.0, 1.2, 1.1]
+responseAcceptedAfterVisualOffset=true: 0
+visualTerminatedByResponse=true       : 0
+footer present  : True
+logger healthy  : True
+write failures  : 0
+----------------------------------------------------------------
+FAIL (structural):
+  - Duplicate trial indices (each trial must have exactly one record): [1]
+----------------------------------------------------------------
+RESULT: FAIL (structural)
+================================================================
+Wrote: tests/fixtures/duplicate_trial.jsonl.summary.json
+Wrote: tests/fixtures/duplicate_trial.jsonl.summary.md

@@ -1,0 +1,7 @@
+[log]TMS1|schema=2|f=100|rt=0.0|wt=0.0|ev=SESSION_BEGIN|sid=1|spawnseq=-1|aname=session|auid=0|cyc=0|map=L_Env|worldtype=3|pie=1|mode=Demo|netmode=0
+[log]TMS1|schema=2|f=101|rt=1.402778|wt=1.402778|ev=SPAWN|sid=1|spawnseq=0|aname=A_500|auid=500|cyc=1
+[log]TMS1|schema=2|f=120|rt=1.666667|wt=1.666667|ev=SPAWN|sid=1|spawnseq=1|aname=A_501|auid=501|cyc=2
+[log]TMS1|schema=2|f=125|rt=1.736111|wt=1.736111|ev=MAT_WRITE|sid=1|spawnseq=0|aname=A_500|auid=500|cyc=1|param=EdgeOpacity|value=0.5
+[log]TMS1|schema=2|f=126|rt=1.750000|wt=1.750000|ev=SNAP|sid=1|spawnseq=0|aname=A_500|auid=500|cyc=1|midvalid=1|miduid=900|activetargets=1|visiblepresentations=2
+[log]TMS1|schema=2|f=130|rt=1.805556|wt=1.805556|ev=ENDPLAY|sid=1|spawnseq=0|aname=A_500|auid=500|cyc=1|reason=0
+[log]TMS1|schema=2|f=160|rt=2.222222|wt=2.222222|ev=ENDPLAY|sid=1|spawnseq=1|aname=A_501|auid=501|cyc=2|reason=0

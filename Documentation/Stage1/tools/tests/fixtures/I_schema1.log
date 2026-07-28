@@ -1,0 +1,4 @@
+[log]TMS1|f=101|rt=1.400000|wt=1.400000|ev=SPAWN|aname=A_500|auid=500|cyc=1
+[log]TMS1|f=130|rt=1.800000|wt=1.800000|ev=ENDPLAY|aname=A_500|auid=500|cyc=1|reason=0
+[log]TMS1|f=201|rt=2.790000|wt=2.790000|ev=SPAWN|aname=A_501|auid=501|cyc=1
+[log]TMS1|f=230|rt=3.190000|wt=3.190000|ev=ENDPLAY|aname=A_501|auid=501|cyc=1|reason=0

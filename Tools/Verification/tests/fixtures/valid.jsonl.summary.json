@@ -1,0 +1,73 @@
+{
+  "info": {
+    "file": "tests/fixtures/valid.jsonl",
+    "total_records": 6,
+    "record_types": {
+      "session_header": 1,
+      "trial": 3,
+      "block_summary": 1,
+      "session_footer": 1
+    },
+    "trial_count": 3,
+    "pii_suspect_hits": [],
+    "unique_trial_indices": [
+      0,
+      1,
+      2
+    ],
+    "duplicate_trial_indices": [],
+    "missing_trial_indices": [],
+    "outcome_counts": {
+      "Hit": 1,
+      "Omission": 1,
+      "CorrectRejection": 1,
+      "Commission": 0,
+      "Void": 0
+    },
+    "stimulus_counts": {
+      "GO": 2,
+      "NOGO": 1
+    },
+    "outcome_sum": 3,
+    "seeds": [
+      20260708
+    ],
+    "sequence_hashes": [
+      "4922870221080512783"
+    ],
+    "timing_field_presence": {
+      "scheduledStimulusOnsetSec": 3,
+      "realizedStimulusOnsetSec": 3,
+      "scheduledStimulusOffsetSec": 3,
+      "realizedStimulusOffsetSec": 3,
+      "responseWindowDeadlineSec": 3,
+      "responseTimestampSec": 3,
+      "behavioralResolutionTimestampSec": 3,
+      "trialCompleteTimestampSec": 3
+    },
+    "visual_duration_count": 3,
+    "deadline_duration_count": 3,
+    "iti_sample_count": 2,
+    "responseAcceptedAfterVisualOffset_true": 0,
+    "visualTerminatedByResponse_true": 0,
+    "visual_duration_min_max_mean": [
+      0.401,
+      0.401,
+      0.401
+    ],
+    "iti_min_max_mean_s": [
+      1.0,
+      1.2,
+      1.1
+    ],
+    "header_present": true,
+    "footer_present": true,
+    "block_summary_count": 1,
+    "logger_healthy": true,
+    "logger_write_failures": 0,
+    "logger_records_written": 4
+  },
+  "warnings": [],
+  "failures": [],
+  "structural_pass": true
+}
