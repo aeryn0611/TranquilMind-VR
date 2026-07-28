@@ -66,3 +66,47 @@ CrashContext.runtime-xml
 # Remove the next line if you want to keep snapshot folders tracked.
 # -------------------------------------------------------------
 Docs/Backup_*/
+
+# =============================================================
+# Evidence freeze 2026-07-28 — kept OUT of git, preserved in the
+# external Verified Evidence Pack instead.
+# All paths below are root-anchored on purpose: an unanchored
+# "Verification/" would also swallow the tracked Tools/Verification
+# toolkit, and an unanchored "Backups/" would match at any depth.
+# =============================================================
+
+# Pre-cleanup binary backups (authoritative recovery source; Evidence Pack 07)
+/Backups/
+
+# Packaged / archived Android build output and .so symbol payloads (~866 MB)
+/ArchivedBuilds/
+/Packaged/
+
+# Local packaging + automation verification run output (raw)
+/Verification/
+
+# External evidence pack and git bundles, should they ever be created inside the repo
+/TranquilMind_Verified_Evidence_Pack_*/
+*.bundle
+
+# Complete raw Unreal capture logs (Evidence Pack 01/02/06)
+# NOTE: deliberately NOT a blanket Documentation/**/*.log — the parser
+# regression fixtures under Documentation/Stage1/tools/tests/fixtures/ are
+# .log files and MUST stay tracked.
+Documentation/Stage1/evidence/*.log
+Documentation/Stage1/tools/replay/*.log
+Documentation/Stage2/evidence/*.log
+
+# Raw Research JSONL — nondeterministic by design; the canonical
+# projections (*.canon.jsonl) are the tracked regression gate.
+Documentation/**/*.raw.jsonl
+
+# Large generated frame-by-frame tables (>500 KB each)
+Documentation/Stage1/evidence/stage1_report_tables_*.md
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Empty scratch output from the Phase 1 toolkit
+Tools/Verification/err.txt

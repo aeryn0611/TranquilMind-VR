@@ -16,7 +16,8 @@ public class TranquilMind : ModuleRules
             "Engine",
             "InputCore",
             "EnhancedInput",
-            "HeadMountedDisplay"
+            "HeadMountedDisplay",
+            "DeveloperSettings"
         });
 
         PrivateDependencyModuleNames.AddRange(new string[]

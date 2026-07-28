@@ -2,6 +2,8 @@
 
 #include "TranquilMindSessionManager.h"
 
+#include "TMResearchSettings.h"
+
 #include "Engine/World.h"
 #include "Math/UnrealMathUtility.h"
 #include "Misc/Guid.h"
@@ -69,13 +71,16 @@ void ATranquilMindSessionManager::BeginPlay()
 
     ConsecutiveSpamBlocks = 0;
 
+    OperatingMode = UTMResearchSettings::GetEffectiveOperatingMode();
+
     EnterPhase_1A();
 
     UE_LOG(
         LogTranquilMindSessionManager,
         Log,
-        TEXT("[Session] Started | ID=%s | ISI=%.0f ms | NoiseAlpha=%.2f"),
+        TEXT("[Session] Started | ID=%s | Mode=%s | ISI=%.0f ms | NoiseAlpha=%.2f"),
         *SessionStats.SessionID,
+        (OperatingMode == ETMOperatingMode::Research) ? TEXT("Research") : TEXT("Demo"),
         SessionStats.Current_ISI_MS,
         SessionStats.Current_NoiseAlpha);
 }
@@ -140,7 +145,11 @@ void ATranquilMindSessionManager::Tick(float DeltaTime)
         }
     }
 
-    if (CurrentPhase == ETMSessionPhase::Phase_II_CoreTraining &&
+    // The 30s micro-block staircase is a DEMO-mode construct. In Research Mode the
+    // UTMResearchRunner owns block structure and adaptation is disabled (Phase 1),
+    // so this must not run (it would reset the ledger mid-research and mutate ISI/noise).
+    if (OperatingMode == ETMOperatingMode::Demo &&
+        CurrentPhase == ETMSessionPhase::Phase_II_CoreTraining &&
         !bBlockClockFrozen)
     {
         BlockClock_SEC += DeltaTime;

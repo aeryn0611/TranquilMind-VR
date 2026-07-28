@@ -248,6 +248,11 @@ private:
         meta = (AllowPrivateAccess = "true"))
     ETMInterruptType ActiveInterrupt = ETMInterruptType::None;
 
+    /** Cached operating mode. In Research, the 30s demo micro-block staircase is disabled. */
+    UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "TranquilMind|State",
+        meta = (AllowPrivateAccess = "true"))
+    ETMOperatingMode OperatingMode = ETMOperatingMode::Demo;
+
     bool bPhaseTransitionInProgress = false;
 
 // ============================================================

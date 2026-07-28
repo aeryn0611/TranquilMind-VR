@@ -56,12 +56,25 @@ void UTranquilMindUISubsystem::OnWorldBeginPlay(UWorld& InWorld)
         TEXT("[UISubsystem] ATranquilMindDemoSummaryPanel spawn result: %s"),
         SpawnedSummary ? TEXT("OK") : TEXT("FAILED - nullptr returned"));
 
-    // World-anchored ambient environment (identity transform, not camera-relative).
-    AActor* SpawnedVisual = InWorld.SpawnActor<ATranquilMindVoidVisualLayer>(
-        ATranquilMindVoidVisualLayer::StaticClass(),
-        FTransform::Identity);
+    // The dedicated Environment map owns its HDRI visual layer. Keep the
+    // legacy Void visuals everywhere else, including L_TranquilMind_Void.
+    const bool bUsesHDRIEnvironment =
+        InWorld.GetMapName().EndsWith(TEXT("L_TranquilMind_Environment"));
 
-    UE_LOG(LogTranquilMindUISubsystem, Warning,
-        TEXT("[UISubsystem] ATranquilMindVoidVisualLayer spawn result: %s"),
-        SpawnedVisual ? TEXT("OK") : TEXT("FAILED - nullptr returned"));
+    if (!bUsesHDRIEnvironment)
+    {
+        // World-anchored ambient environment (identity transform, not camera-relative).
+        AActor* SpawnedVisual = InWorld.SpawnActor<ATranquilMindVoidVisualLayer>(
+            ATranquilMindVoidVisualLayer::StaticClass(),
+            FTransform::Identity);
+
+        UE_LOG(LogTranquilMindUISubsystem, Warning,
+            TEXT("[UISubsystem] ATranquilMindVoidVisualLayer spawn result: %s"),
+            SpawnedVisual ? TEXT("OK") : TEXT("FAILED - nullptr returned"));
+    }
+    else
+    {
+        UE_LOG(LogTranquilMindUISubsystem, Warning,
+            TEXT("[UISubsystem] HDRI Environment map detected; legacy Void visual layer skipped"));
+    }
 }

@@ -73,6 +73,24 @@ enum class ETMStimulusType : uint8
 };
 
 /**
+ * Top-level operating mode. This is the SINGLE authority that decides
+ * scientific vs. portfolio behavior. It replaces reliance on overlapping
+ * booleans (bDemoMode / bDebugHardwareMode) for that decision.
+ *
+ * Demo     = existing verified moving-target 120s portfolio mode (non-scientific).
+ * Research = Phase-1 discrete-flashed adolescent GO/NOGO research mode.
+ *
+ * Default is Demo so that verified production behavior never changes silently;
+ * Research is opt-in via UTMResearchSettings / the tranquilmind.OperatingMode cvar.
+ */
+UENUM(BlueprintType)
+enum class ETMOperatingMode : uint8
+{
+    Demo UMETA(DisplayName = "Demo - Moving-target portfolio (non-scientific)"),
+    Research UMETA(DisplayName = "Research - Discrete flashed GO/NOGO (Phase 1)")
+};
+
+/**
  * Direction of staircase step, shared by both Track A and Track B.
  * Used in logging; actual delta magnitude is track-specific.
  */
