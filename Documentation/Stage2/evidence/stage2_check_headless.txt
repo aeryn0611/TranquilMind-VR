@@ -1,0 +1,31 @@
+# Stage 2 acceptance check
+# log     : Documentation/Stage2/evidence/stage2_headless_environment_capture.log
+# session : sid=1 map=L_TranquilMind_Environment mode=Demo pie=0 spawns=40 end=OPEN / INCOMPLETE
+
+--               session                                                          INFO  sid=1 events=13115 identities=40
+S2-A             max official live presentations = 1                              PASS  observed max livepresentation = 1
+S2-A             never 2 official presentations                                   PASS  0 sample(s) with livepresentation >= 2
+S2-B             max ActiveTargets = 1                                            PASS  observed max activetargets = 1
+S2-B             never 2 registered targets                                       PASS  0 sample(s) with activetargets >= 2
+S2-D             no role-coded target overlap                                     PASS  0 sample(s) with visiblepresentations >= 2 (max 1)
+ID               no identity carries two cycle numbers                            PASS  0 offending identity/identities
+ID               no identity carries two auid                                     PASS  0 offending identity/identities
+S2-C             no predecessor event relabelled to a successor                   PASS  identity is (sid, spawnseq); no shared-key collisions found
+S2-C             no successor presentation overlaps a predecessor                 PASS  0 overlapping identity frame-span pair(s)
+PHASE            phase transitions are strictly ordered, no repeats               PASS  0 identity/identities out of order
+PHASE            all nine phases traversed by completed presentations             PASS  40 identity/identities traversed all 9; missing counts={}
+S2-G             no scored event fires outside Phase 4 / the outcome lock         PASS  0 violation(s)
+EXACTLY-ONCE     at most one outcome per presentation                             PASS  0 identity/identities with >1 OUTCOME
+--               outcome distribution                                             INFO  {'Omission': 20, 'CorrectRejection': 19, 'Void': 1}
+EXACTLY-ONCE     at most one destroy request per presentation                     PASS  0 identity/identities with >1 DESTROY_REQ
+--               cancelled (Void) presentations excluded from timing              INFO  1 of 40
+--               spawn frame-delta multiset (72 fps)                              INFO  {206: 1, 216: 36, 217: 2}
+TIMING           steady-state cadence remains 3000 ms                             PASS  median=3000.0 ms, modal frame delta=216 (36/39 intervals)
+S2-C             no spawn interval shorter than the visual lifetime               PASS  min interval=2861.1 ms vs max visual lifetime=2875.0 ms
+--               non-modal spawn intervals (phase-boundary latch)                 INFO  1: 2861.1 ms
+TIMING           effective response window remains 2500 ms                        PASS  n=39 mean=2500.4 ms min=2500.0 max=2513.9 (every sample within 2500.0 +/- 30.0)
+TIMING           visual lifetime = 2850 ms (2500 + 350)                           PASS  n=39 mean=2852.6 ms min=2847.2 max=2875.0 (every sample within 2850.0 +/- 40.0)
+STAGE3-BOUNDARY  no visibility write introduced (that is Stage 3)                 PASS  VIS_FALSE=0 HIDDEN_TRUE=0
+STAGE3-BOUNDARY  destroy still on the final material-write frame (unchanged, C1)  INFO  same-frame=40 deferred=0
+
+RESULT: PASS

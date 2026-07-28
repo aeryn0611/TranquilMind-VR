@@ -1,0 +1,22 @@
+sid=1 map=Untitled_1 mode=Demo pie=0 events=8 spawns=1 frames=603..606 end=SupersededByNewWorld
+sid=2 map=Untitled_2 mode=Demo pie=0 events=22 spawns=2 frames=606..609 end=SupersededByNewWorld
+sid=3 map=Untitled_3 mode=Demo pie=0 events=22 spawns=2 frames=609..612 end=SupersededByNewWorld
+sid=4 map=Untitled_4 mode=Demo pie=0 events=2 spawns=0 frames=612..612 end=EEndPlayReason::Destroyed
+sid=5 map=Untitled_23 mode=Demo pie=0 events=16 spawns=1 frames=624..630 end=SupersededByNewWorld
+sid=6 map=Untitled_28 mode=Demo pie=0 events=8 spawns=1 frames=630..633 end=SupersededByNewWorld
+sid=7 map=Untitled_29 mode=Demo pie=0 events=1976 spawns=6 frames=633..633 end=SupersededByNewWorld
+sid=8 map=Untitled_30 mode=Demo pie=0 events=1976 spawns=6 frames=633..635 end=SupersededByNewWorld
+sid=9 map=Untitled_31 mode=Demo pie=0 events=331 spawns=1 frames=635..637 end=SupersededByNewWorld
+sid=10 map=Untitled_32 mode=Demo pie=0 events=200 spawns=1 frames=637..637 end=SupersededByNewWorld
+sid=11 map=Untitled_33 mode=Demo pie=0 events=200 spawns=1 frames=637..639 end=SupersededByNewWorld
+sid=12 map=Untitled_34 mode=Demo pie=0 events=8 spawns=1 frames=639..642 end=SupersededByNewWorld
+sid=13 map=Untitled_35 mode=Demo pie=0 events=194 spawns=2 frames=642..645 end=SupersededByNewWorld
+sid=14 map=Untitled_36 mode=Demo pie=0 events=349 spawns=1 frames=645..647 end=SupersededByNewWorld
+sid=15 map=Untitled_37 mode=Demo pie=0 events=158 spawns=2 frames=647..649 end=SupersededByNewWorld
+sid=16 map=Untitled_38 mode=Demo pie=0 events=16 spawns=2 frames=649..649 end=SupersededByNewWorld
+sid=17 map=Untitled_39 mode=Demo pie=0 events=16 spawns=1 frames=649..649 end=EEndPlayReason::Destroyed
+sid=18 map=Untitled_40 mode=Demo pie=0 events=16 spawns=1 frames=651..653 end=SupersededByNewWorld
+sid=19 map=Untitled_41 mode=Demo pie=0 events=141 spawns=2 frames=653..657 end=SupersededByNewWorld
+sid=20 map=Untitled_42 mode=Research pie=0 events=2 spawns=0 frames=657..682 end=SupersededByNewWorld
+sid=21 map=Untitled_46 mode=Research pie=0 events=2 spawns=0 frames=682..685 end=SupersededByNewWorld
+sid=22 map=Untitled_47 mode=Research pie=0 events=2 spawns=1 frames=685..685 end=OPEN / INCOMPLETE
