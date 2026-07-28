@@ -1,0 +1,5 @@
+# Pre-Part-3 Implementation Spec archive — 2026-07-28T10:03:26Z
+
+FILE                                                                        BYTES  SHA256
+Documentation/Spec_Archive/TranquilMind_Implementation_Spec_pre_Part3_20260728.md    21559  696fc36d99a38e8f5cef3592bf0c0a638a56edd202634a220418e555d58a30a1
+Documentation/Stage1/TranquilMind_Implementation_Spec.md                    21559  696fc36d99a38e8f5cef3592bf0c0a638a56edd202634a220418e555d58a30a1
